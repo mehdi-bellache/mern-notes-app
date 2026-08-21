@@ -1,5 +1,3 @@
-import express from "express";
-
 export const getAllNotes = (req, res) => {
   res.send("All notes");
 };
