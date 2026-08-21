@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router.delete("/:id", (req, res) => {
   res.json({ message: "note deleted successfully" });
 });
 
-module.exports = router;
+export default router;
