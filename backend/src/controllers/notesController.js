@@ -18,8 +18,17 @@ export const getNote = async (req, res) => {
   res.status(StatusCodes.OK).json({ note });
 };
 
-export const createNote = (req, res) => {
-  res.json({ message: "note created" });
+export const createNote = async (req, res) => {
+  try {
+    const name = req.body.name;
+    const description = req.body.description;
+    const note = await Note.create({ name, description });
+    res.status(StatusCodes.CREATED).json(note);
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
+  }
 };
 
 export const updateNote = (req, res) => {
