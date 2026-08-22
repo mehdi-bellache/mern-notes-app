@@ -31,10 +31,35 @@ export const createNote = async (req, res) => {
   }
 };
 
-export const updateNote = (req, res) => {
-  res.json({ message: "note updated successfully" });
+export const updateNote = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    const note = await Note.findOneAndUpdate({ _id: noteId }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!note) {
+      res.status(StatusCodes.NOT_FOUND).json({ message: "Note not found" });
+    }
+    res.status(StatusCodes.OK).json(note);
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
+  }
 };
 
-export const deleteNote = (req, res) => {
-  res.json({ message: "note deleted successfully" });
+export const deleteNote = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    const note = await Note.findOneAndDelete({ _id: noteId });
+    if (!note) {
+      res.status(StatusCodes.NOT_FOUND).json({ message: "Note not found" });
+    }
+    res.status(StatusCodes.OK).json({ message: "Note Delete Successfully" });
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
+  }
 };
