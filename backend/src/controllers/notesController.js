@@ -3,7 +3,7 @@ import StatusCodes from "http-status-codes";
 
 export const getAllNotes = async (req, res) => {
   try {
-    const notes = await Note.find({});
+    const notes = await Note.find({}).sort({ createdAt: -1 });
     res.status(StatusCodes.OK).json({ notes });
   } catch (error) {
     res
@@ -13,9 +13,18 @@ export const getAllNotes = async (req, res) => {
 };
 
 export const getNote = async (req, res) => {
-  const noteId = req.params.id;
-  const note = await Note.findOne({ _id: noteId });
-  res.status(StatusCodes.OK).json({ note });
+  try {
+    const noteId = req.params.id;
+    const note = await Note.findOne({ _id: noteId });
+    if (!note) {
+      res.status(StatusCodes.NOT_FOUND).json({ message: "Note not found" });
+    }
+    res.status(StatusCodes.OK).json({ note });
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal Server Error" });
+  }
 };
 
 export const createNote = async (req, res) => {
@@ -34,14 +43,14 @@ export const createNote = async (req, res) => {
 export const updateNote = async (req, res) => {
   try {
     const noteId = req.params.id;
-    const note = await Note.findOneAndUpdate({ _id: noteId }, req.body, {
+    const updatedNote = await Note.findOneAndUpdate({ _id: noteId }, req.body, {
       new: true,
       runValidators: true,
     });
-    if (!note) {
+    if (!updatedNote) {
       res.status(StatusCodes.NOT_FOUND).json({ message: "Note not found" });
     }
-    res.status(StatusCodes.OK).json(note);
+    res.status(StatusCodes.OK).json(updatedNote);
   } catch (error) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -52,8 +61,8 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
   try {
     const noteId = req.params.id;
-    const note = await Note.findOneAndDelete({ _id: noteId });
-    if (!note) {
+    const deletedNote = await Note.findOneAndDelete({ _id: noteId });
+    if (!deletedNote) {
       res.status(StatusCodes.NOT_FOUND).json({ message: "Note not found" });
     }
     res.status(StatusCodes.OK).json({ message: "Note Delete Successfully" });
