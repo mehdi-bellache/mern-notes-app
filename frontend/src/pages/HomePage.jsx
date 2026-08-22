@@ -3,7 +3,10 @@ import React from 'react'
 function HomePage() {
   return (
     <div>
-        HomePage
+        <nav>
+            <h1>ThinkBoard</h1>
+            <a href="">+ New Note</a>
+        </nav>
       
     </div>
   )
