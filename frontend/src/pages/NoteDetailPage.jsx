@@ -31,6 +31,7 @@ function NoteDetailPage() {
   }, [id])
 
   const handleDelete = () => {}
+  const handleSave = () => {}
 
   if(loading){
     return (
@@ -60,6 +61,23 @@ function NoteDetailPage() {
                   <span className='label-text'>Name</span>
                 </label>
                 <input type="text" placeholder='Note Name' className='input input-bordered' value={note.name} onChange={(e) => setNote({...note, title: e.target.value})} />
+              </div>
+               <div className="form-control mb-4">
+                <label className="label">
+                  <span className="label-text">Description</span>
+                </label>
+                <textarea
+                  placeholder="Write your note here..."
+                  className="textarea textarea-bordered h-32"
+                  value={note.description}
+                  onChange={(e) => setNote({ ...note, description: e.target.value })}
+                />
+              </div>
+
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary" disabled={saving} onClick={handleSave}>
+                  {saving ? "Saving..." : "Save Changes"}
+                </button>
               </div>
 
 
