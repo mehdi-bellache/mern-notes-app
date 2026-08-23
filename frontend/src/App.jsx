@@ -1,4 +1,3 @@
-import React from 'react'
 import {Route, Routes} from "react-router";
 
 import HomePage from './pages/HomePage'
@@ -8,7 +7,7 @@ import toast from 'react-hot-toast';
 
 function App() {
   return (
-    <div data-theme="cyberpunk">
+    <div data-theme="coffee">
       {/* <button onClick={()=>{toast.success("congrats")}} className='text-red-950 bg-pink-400'>click me</button> */}
       {/* <button className='btn btn-outline'>click me</button> */}
       <Routes>
