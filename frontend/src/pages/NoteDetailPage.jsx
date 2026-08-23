@@ -23,7 +23,7 @@ function NoteDetailPage() {
         toast.error("Failed to fetch the note");
       }
       finally{
-        setLoading(false);
+        setLoading(false)
         
       }
     }; fetchNote();
@@ -40,24 +40,27 @@ function NoteDetailPage() {
       console.log("Failed to delete the note", error)
       toast.error("Failed to delete the note");
     }
-
-}
-  const handleSave = () => {
+    
+  }
+  const handleSave = async() => {
     if(!note.name.trim() || !note.description.trim()){
-      toast.error("Please add a name or a description");
-      return 
+      toast.error("Please add a name and a description");
+      return ;
     }
-    await api.patch(`/notes/${id}`, {note.name, note.description});
-    navigate("/");
     setSaving(true);
     try{
-
+      await api.patch(`/notes/${id}`, note );
+      toast.success("Note updated successfully");
+      // navigate("/");
+      
     }
     catch(error){
-
+      console.log("Failed to update the note", error)
+      toast.error("Failed to update the note");
+      
     }
     finally{
-      setLoading(false);
+      setSaving(false);
     }
   }
 
@@ -88,7 +91,7 @@ function NoteDetailPage() {
                 <label className='label'>
                   <span className='label-text'>Name</span>
                 </label>
-                <input type="text" placeholder='Note Name' className='input input-bordered' value={note.name} onChange={(e) => setNote({...note, title: e.target.value})} />
+                <input type="text" placeholder='Note Name' className='input input-bordered' value={note.name} onChange={(e) => setNote({...note, name: e.target.value})} />
               </div>
                <div className="form-control mb-4">
                 <label className="label">
