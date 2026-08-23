@@ -51,7 +51,7 @@ function NoteDetailPage() {
     try{
       await api.patch(`/notes/${id}`, note );
       toast.success("Note updated successfully");
-      // navigate("/");
+      navigate("/");
       
     }
     catch(error){
