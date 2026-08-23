@@ -4,7 +4,7 @@ import RateLimitedUI from '../components/RateLimitedUI';
 import axios from "axios"
 
 function HomePage() {
-  const [isRateLimited, setIsRateLimited] = useState(true);
+  const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(false)
 
@@ -12,20 +12,29 @@ function HomePage() {
     const fetchNotes = async () =>{
       try{
         // fetch method 
-        // const res = await fetch("http://localhost:5001/api/v1/notes");
+        // const res = await fetch("http://localhost:3000/api/v1/notes");
         // const data = await res.json();
         // axios method
         
-        const res = await axios.get("http://localhost:5001/api/v1/notes");
+        const res = await axios.get("http://localhost:3000/api/v1/notes");
+        setNotes(res.data);
+        setIsRateLimited(false);
         console.log(res.data);
 
       }
       catch(error){
         console.log("error fetching notes");
+        if(error.response.status === 429){
+          setIsRateLimited(true);
+        }
+        else{
+
+        }
 
       }
-    }
-  })
+    };
+    fetchNotes();
+  }, [])
   return (
     <div className='min-h-screen'>
         <TopNavbar/>
