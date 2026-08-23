@@ -8,13 +8,13 @@ import rateLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
 
-app.use(express.json());
-app.use(rateLimiter);
 app.use(
   cors({
     origin: "http://localhost:5173",
   }),
 );
+app.use(express.json());
+app.use(rateLimiter);
 
 app.use("/api/v1/notes", notesRoutes);
 
