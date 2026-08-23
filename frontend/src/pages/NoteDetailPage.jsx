@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router';
-import { LoaderIcon } from 'lucide-react';
+import { useNavigate, useParams, Link } from 'react-router';
+import { LoaderIcon, ArrowLeftIcon, Trash2Icon } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 function NoteDetailPage() {
   const [note, setNote] = useState(null);
@@ -27,6 +28,8 @@ function NoteDetailPage() {
     }; fetchNote();
   }, [id])
 
+  const handleDelete = () => {}
+
   if(loading){
     return (
       <div className='min-h-screen bg-base-200 flex items-center justify-center'>
@@ -37,7 +40,22 @@ function NoteDetailPage() {
 
   return (
     <div className='min-h-screen bg-base-200'>
-      <div className='container'></div>
+      <div className='container mx-auto px-4 py-8'>
+        <div className='max-w-2xl mx-auto'>
+          <div className='flex items-center justify-between mb-6'>
+            <Link to={"/"} className='btn btn-ghost'>
+              <ArrowLeftIcon className='h-5 w-5'/>
+              Back To Notes
+            </Link>
+            <button onClick={handleDelete} className="btn btn-error btn-outline">
+              <Trash2Icon className="h-5 w-5"/> Delete Note
+            </button>
+          </div>
+          <div className="card bg-base-100">
+            <div className="card-body"></div>
+          </div>
+        </div>
+      </div>
       
     </div>
   )
