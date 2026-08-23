@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "../lib/axios";
 import toast from "react-hot-toast"
 
 import { useEffect, useState } from 'react'
@@ -10,7 +10,7 @@ import NoteCard from "../components/NoteCard";
 function HomePage() {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
     const fetchNotes = async () =>{
@@ -20,7 +20,7 @@ function HomePage() {
         // const data = await res.json();
         // axios method
         
-        const res = await axios.get("http://localhost:3000/api/v1/notes");
+        const res = await api.get("/notes");
         setNotes(res.data.notes);
         setIsRateLimited(false);
         console.log(res.data);
@@ -52,7 +52,7 @@ function HomePage() {
           {notes.length > 0 && !isRateLimited && (
             <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {notes.map((note) =>(
-                <NoteCard key= {note._id} note={note}/>
+                <NoteCard key= {note._id} note={note} setNotes = {setNotes}/>
               ))}
             </div>
           )}
