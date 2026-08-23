@@ -10,7 +10,7 @@ function App() {
   return (
     <div data-theme="cyberpunk">
       {/* <button onClick={()=>{toast.success("congrats")}} className='text-red-950 bg-pink-400'>click me</button> */}
-      <button className='btn btn-outline'>click me</button>
+      {/* <button className='btn btn-outline'>click me</button> */}
       <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/create" element={<CreatePage/>}/>

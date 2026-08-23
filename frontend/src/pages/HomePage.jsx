@@ -1,13 +1,9 @@
-import React from 'react'
+import Navbar from '../components/navbar'
 
 function HomePage() {
   return (
     <div>
-        <nav>
-            <h1>ThinkBoard</h1>
-            <a href="">+ New Note</a>
-        </nav>
-      
+        <Navbar></Navbar>
     </div>
   )
 }
