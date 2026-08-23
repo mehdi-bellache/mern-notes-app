@@ -17,7 +17,6 @@ function NoteDetailPage() {
       try{
         const res = await api.get(`/notes/${id}`);
         setNote(res.data.note);
-        console.log(res.data.note);
       }
       catch(error){
         console.log("Error in fetching note", error)
@@ -25,13 +24,42 @@ function NoteDetailPage() {
       }
       finally{
         setLoading(false);
-
+        
       }
     }; fetchNote();
   }, [id])
+  
+  const handleDelete = async (e) =>{
+    e.preventDefault();
+    try{
+      await api.delete(`/notes/${id}`);
+      toast.success("Note deleted successfully");
+      navigate("/")
+    }
+    catch(error){
+      console.log("Failed to delete the note", error)
+      toast.error("Failed to delete the note");
+    }
 
-  const handleDelete = () => {}
-  const handleSave = () => {}
+}
+  const handleSave = () => {
+    if(!note.name.trim() || !note.description.trim()){
+      toast.error("Please add a name or a description");
+      return 
+    }
+    await api.patch(`/notes/${id}`, {note.name, note.description});
+    navigate("/");
+    setSaving(true);
+    try{
+
+    }
+    catch(error){
+
+    }
+    finally{
+      setLoading(false);
+    }
+  }
 
   if(loading){
     return (
