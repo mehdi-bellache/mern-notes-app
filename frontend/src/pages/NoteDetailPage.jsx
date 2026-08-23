@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link } from 'react-router';
 import { LoaderIcon, ArrowLeftIcon, Trash2Icon } from 'lucide-react';
 import toast from 'react-hot-toast';
+import api from '../lib/axios';
 
 function NoteDetailPage() {
   const [note, setNote] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
   const navigate = useNavigate();
@@ -14,11 +15,12 @@ function NoteDetailPage() {
   useEffect(()=>{
     const fetchNote = async() =>{
       try{
-        const res = await api.get(`/notes/${id}`)
-        setNote(res.data);
-
+        const res = await api.get(`/notes/${id}`);
+        setNote(res.data.note);
+        console.log(res.data.note);
       }
       catch(error){
+        console.log("Error in fetching note", error)
         toast.error("Failed to fetch the note");
       }
       finally{
@@ -52,7 +54,16 @@ function NoteDetailPage() {
             </button>
           </div>
           <div className="card bg-base-100">
-            <div className="card-body"></div>
+            <div className="card-body">
+              <div className='form-control mb-4'>
+                <label className='label'>
+                  <span className='label-text'>Name</span>
+                </label>
+                <input type="text" placeholder='Note Name' className='input input-bordered' value={note.name} onChange={(e) => setNote({...note, title: e.target.value})} />
+              </div>
+
+
+            </div>
           </div>
         </div>
       </div>
