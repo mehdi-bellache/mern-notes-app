@@ -18,7 +18,7 @@ Key takeaways from this build:
 ## Live Demo
 
 Check out the live application here:  
-👉 **[ThinkBoard Live Demo](https://your-render-app-url.onrender.com)** *(replace with your actual Render URL)*
+👉 **[ThinkBoard Live Demo] (https://mern-notes-app-1-v3mx.onrender.com)
 
 ---
 
@@ -55,7 +55,7 @@ Check out the live application here:
    ```
 
 ### **Set up environment variables:**
-   Create a `.env` file inside the `backend/` directory with:
+   Set up your MongoDB database, then create a `.env` file inside the `backend/` directory:
    ```env
    MONGO_URI=your_mongodb_connection_string
    UPSTASH_REDIS_REST_URL=your_upstash_url
@@ -63,13 +63,22 @@ Check out the live application here:
    NODE_ENV=development
    ```
 
-### **Build & Start:**
-   Run these commands from the root folder:
-   ```bash
-   npm run build # Installs backend & frontend packages, then builds the client
-   npm start     # Starts the backend server
-   ```
+### **Run the Application:**
 
+   **Option A: Development Mode (Recommended for local coding)**  
+   Open two separate terminal windows:
+   - **Backend:** Navigate to `backend/` and run `npm run dev`
+   - **Frontend:** Navigate to `frontend/` and run `npm run dev`  
+   
+   Then open `http://localhost:5173/` in your browser.
+
+   **Option B: Production Mode (Build)**  
+   Change the value of the variable NODE_ENV from developement to production.
+   Run these commands from the **root** folder:
+   ```bash
+   npm run build # Installs all dependencies and builds the React frontend
+   npm start     # Starts the unified backend server
+   ```
    Then open `http://localhost:3000` in your browser.
 
 ---
